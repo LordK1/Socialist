@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socialist - {% block title %}{% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'animate.css/animate.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block links %}
+
+    {% endblock %}
+    {# Styles #}
+    <!-- Custom CSS -->
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+{# Navbar #}
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+{# Messages #}
+{% block messages %}
+    <div id="messages" class="ballons" style="display: none;">
+        Message : {{ message }}
+    </div>
+    <script type="text/javascript">
+
+        var hasMessage =
+
+    </script>
+{% endblock %}
+
+{# Content#}
+{% block content %}
+
+{% endblock content %}
+
+{% block extra_body %}
+{% endblock extra_body %}
+
+<!-- Scripts -->
+<script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'cookie.js/cookie.js' %}"></script>
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+</html>

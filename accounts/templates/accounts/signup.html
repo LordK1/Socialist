@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load staticfiles crispy_forms_tags i18n %}
+{% load account socialaccount %}
+{% block title %}
+    SignUp
+{% endblock %}
+{% block content %}
+    {% get_providers as socialaccount_providers %}
+    <div class="container">
+        <div class="col-md-12 col-sm-3 col-xs-3">
+            <div class="row">
+                {% comment %}{% crispy form %}{% endcomment %}
+                tags :{{ all_tags }}
+            </div>
+        </div>
+        <div id="signupbox"
+             class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Sign Up</div>
+                    <div class="signup-form-wrapper">
+                        <a id="signinlink" href="{% url 'login' %}">
+                            SignIn
+                        </a>
+                    </div>
+                </div>
+                {{ form.errors }}
+                <div class="panel-body">
+                    <form id="signupform" class="form-horizontal" role="form"
+                          method="post"
+                          action="{% url 'signup' %}"
+                          data-toggle="validator">
+
+                        {% csrf_token %}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}"/>
+                        {% endif %}
+
+
+                        {# Username #}
+                        <div class="form-group {% if form.username.errors %}has-error{% endif %}">
+                            <label for="{{ form.username.id }}" class="col-md-4">{{ form.username.label }}</label>
+
+                            <div class="col-md-8">
+                                <input class="form-control" autofocus="autofocus" id="{{ form.username.id }}"
+                                       maxlength="30"
+                                       name="{{ form.username.name }}" placeholder="Username" type="text" required
+                                       data-toggle="validator"/>
+                            </div>
+                        </div>
+                        {# Email Address #}
+                        <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                            <label for="{{ form.email.id }}" class="col-md-4">{{ form.email.label }}</label>
+
+                            <div class="col-md-8">
+                                <input class="form-control" autofocus="autofocus" id="{{ form.email.id }}"
+                                       name="{{ form.email.name }}"
+                                       placeholder="E-mail address" type="email"
+                                       data-error="Bruh, that email address is invalid"
+                                       required
+                                        />
+                            </div>
+                        </div>
+                        {# First Name #}
+                        <div class="form-group {% if form.firstname.errors %}has-error{% endif %}">
+                            <label for="{{ form.firstname.id }}" class="col-md-4">First Name</label>
+
+                            <div class="col-md-8">
+                                <input id="{{ form.firstname.id }}" type="text" class="form-control" name="firstname"
+                                       placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="form-group {% if form.lastname.errors %}has-error{% endif %}">
+                            <label for="{{ form.lastname.id }}" class="col-md-4">Last Name</label>
+
+                            <div class="col-md-8">
+                                <input type="text" id="{{ form.lastname.id }}" class="form-control" name="lastname"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
+                            <label for="{{ form.password1.id }}"
+                                   class="col-md-4">{{ form.password1.label }}</label>
+
+                            <div class="col-md-8">
+                                <input type="password" id="{{ form.password1.id }}" class="form-control"
+                                       name="{{ form.password1.name }}"
+                                       placeholder="{{ form.password1.label }}"
+                                       required
+                                        >
+                            </div>
+                        </div>
+                        <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
+                            <label for="{{ form.password2.id }}"
+                                   class="col-md-4">{{ form.password2.label }}</label>
+
+                            <div class="col-md-8">
+                                <input type="password" id="{{ form.password2.id }}"
+                                       class="form-control"
+                                       name="password2"
+                                       placeholder="{{ form.password2.label }}"
+                                       data-match="{{ form.password1.id }}"
+                                       data-match-error="Whoops, these don't match"
+                                       required
+                                        >
+
+                                <div class="help-block with-errors"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-wrapper">
+                            <!-- Buttons -->
+                            <div class="col-sm-12 controls">
+                                <button id="btn-signup" type="submit" class="btn btn-info">
+                                    <i class="icon-hand-right"></i>
+                                    {% trans "Sign Up" %}
+                                </button>
+
+                                {% for provider in socialaccount_providers %}
+                                    {% if provider.id == "openid" %}
+                                        {% for brand in provider.get_brands %}
+                                            <a title="{{ brand.name }}" class="btn btn-default btn-primary"
+                                               href="{% provider_login_url provider.id openid=brand.openid_url process="signup" %}">
+                                                {{ brand.name }}
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a title="{{ provider.name }}" class="btn btn-default btn-primary"
+                                       href="{% provider_login_url provider.id process="signup" scope=scope auth_params=auth_paramas %}">
+                                        {{ provider.name }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

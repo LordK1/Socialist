@@ -1,0 +1,78 @@
+body {
+    /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 70px;
+}
+#signupbox {
+    margin-top: 50px;
+}
+
+#loginbox {
+    margin-top: 50px;
+}
+
+div.forget-password-wrapper {
+    float: right;
+    font-size: 80%;
+    position: relative;
+    top: -10px;
+}
+
+.form-group-wrapper {
+    padding-top: 10px;
+}
+
+.panel-body-wrapper {
+    padding-top: 30px;
+}
+
+#login-alert {
+    display: none;
+}
+
+.input-group-wrapper {
+    margin-bottom: 10px;
+}
+
+.input-group-wrapper-bottom {
+    margin-bottom: 25px;
+}
+
+.form-group-wrapper {
+    margin-top: 10px;
+}
+
+div.form-group-button-wrapper {
+    border-top: 1px solid #888;
+    padding-top: 15px;
+    font-size: 85%;
+}
+
+div.signup-form-wrapper {
+    float: right;
+    font-size: 85%;
+    position: relative;
+    top: -10px;
+}
+
+div.ballons {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1;
+    margin: -20px 8px 0 0;
+    line-height: 30px;
+    padding: 0 10px;
+    border-radius: 30px;
+    border: 1px solid #fff;
+    border-radius: 10px 0px 10px 0px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    background: gray;
+    color: #fff;
+    text-align: center;
+    -moz-box-shadow: 1px 1px 3px 3px #ccc;
+    -webkit-box-shadow: 1px 1px 3px 3px #ccc;
+    box-shadow: 1px 1px 3px 3px #ccc;
+}

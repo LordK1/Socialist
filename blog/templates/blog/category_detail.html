@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    {{ category.title }}
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/post-styles.css' %}">
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1> All Posts for {{ category.title }}</h1>
+        </div>
+        {% for post in category.posts.all %}
+            {% include 'blog/post_snippet.html' with post=post %}
+        {% endfor %}
+    </div>
+{% endblock %}

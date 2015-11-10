@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles crispy_forms_tags %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        Logged In
+    {% else %}
+        Not Logged
+    {% endif %}
+{% endblock %}
+
+{% if messages %}
+    {% block messages %}
+        <p>
+            Message : {{ message }}
+        </p>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <form onsubmit="return false;">
+                        {% csrf_token %}
+                        {% crispy form %}
+                        <button id="search-button" type="submit" onclick="Search();" class="btn btn-primary">Search
+                        </button>
+                    </form>
+                    <ul id="search-results">
+
+                    </ul>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+
+        function Search() {
+            $.ajax({
+                type: "POST",
+                url: '/search/',
+                dataType: "json",
+                async: true,
+                data: {
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    'search_text': $('#search-box').val()
+                },
+                success: function (json) {
+                    console.log("Results : " + json.result + " message : " + json.message);
+                    $('#search-results').append("message : " + json.message + " results : " + json.result);
+                }
+            });
+        }
+
+    </script>
+
+{% endblock %}

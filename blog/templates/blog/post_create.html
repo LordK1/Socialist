@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Create Post
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+
+
+                <form action="{% url 'blog:post_create' %}" method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Create Post</legend>
+                        {#Title input#}
+                        <div class="form-group">
+                            <label class=" control-label"
+                                   for="{{ form.title.id }}">{{ form.title.label }}</label>
+
+                            <input id="{{ form.title.id }}" name="{{ form.title.name }}" type="text"
+                                   placeholder="{{ form.title.placeholder }}"
+                                   class="form-control input-md" required="">
+                            <span class="help-block">{{ form.title.help }}</span>
+                        </div>
+                        {#Content input#}
+                        <div class="form-group">
+                            <label class="control-label"
+                                   for="{{ form.content.id }}">{{ form.content.label }}</label>
+
+                                <textarea id="{{ form.content.id }}" name="{{ form.content.name }}" type="textarea"
+                                          rows="5" cols="50"
+                                          placeholder="{{ form.content.placeholder }}"
+                                          class="form-control input-md" required="required"
+                                        ></textarea>
+                            <span class="help-block">{{ form.content.help }}</span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"
+                                   for="{{ form.category.id }}">{{ form.category.label }}</label>
+                            {{ form.category }}
+                            <a class="btn btn-default" href="{% url 'blog:category_create' %}">
+                                    <span class="input-group-addon"><i
+                                            class="glyphicon glyphicon-plus"></i></span></a>
+                        </div>
+                        <div class="form-group">
+                            {% if form.errors %}
+                                {{ form.errors }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <button id="create" name="create-btn" class="btn btn-success" type="submit">Create
+                            </button>
+                            <button id="cancle" name="cancle-btn" class="btn btn-danger" type="button">Cancle
+                            </button>
+                        </div>
+
+
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

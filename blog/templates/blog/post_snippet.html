@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-12">
+        {# Post Row #}
+        <div class="row">
+            {# Header #}
+            <div class="col-md-12 post">
+                <div class="row">
+                    <div class="col-md-12">
+                        {# Header or Title #}
+                        <h2>
+                            <strong>
+                                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                            </strong>
+                        </h2>
+                        {#  Post Category #}
+                        <h5>
+                            <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="row post-content">
+                    {# Thumbnail #}
+                    <div class="col-md-3">
+                        <a href="#">
+                            <img src="http://placehold.it/350x250" alt="placehold.it/350x250"
+                                 class="img-responsive">
+                        </a>
+                    </div>
+                    {# Post Content#}
+                    <div class="col-md-6">
+                        <p>
+                            {{ post.content | truncatewords:50 | truncatechars:100 }}
+                        </p>
+
+                        <p>
+                            <a class="btn btn-read-more" href="{{ post.get_absolute_url }}">Read More</a>
+                        </p>
+
+                    </div>
+                    {#  Rating and Vote bar #}
+                    <div class="col-md-3 text-center">
+                        <h2>14240
+                            <small>votes</small>
+                        </h2>
+                        <button class="btn btn-default btn-lg">
+                            Vote Now!
+                        </button>
+                        <div class="stars">
+                            <i class="fa fa-2x fa-star"></i>
+                            <i class="fa fa-2x fa-star"></i>
+                            <i class="fa fa-2x fa-star"></i>
+                            <i class="fa fa-2x fa-star-half-full"></i>
+                        </div>
+                        <p>Average 4.5
+                            <small> /</small>
+                            5
+                        </p>
+                    </div>
+                </div>
+                {# Post Footer #}
+                <div class="row">
+                    <div class="col-md-12 post-footer-line">
+                        <div class="col-md-2 post-footer-line-item">
+                            {# Author #}
+                            <i class="fa fa-1x fa-user"></i>
+                            by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>
+                        </div>
+                        <div class="col-md-2 post-footer-line-item">
+                            {# Release Date #}
+                            <i class="fa fa-1x fa-calendar-check-o"></i>
+                            {# it must be something like Sep 16th, 2012 #}
+                            {{ post.published_date | date:"M D d, Y"}}
+                        </div>
+                        <div class="col-md-2 post-footer-line-item">
+                            {# Comments #}
+                            <i class="fa fa-1x fa-commenting-o"></i><a href="#"> 3 Comments </a>
+                        </div>
+                        <div class="col-md-2 post-footer-line-item">
+                            {#  Shares  #}
+                            <i class="fa fa-1x fa-share-alt"></i></span><a href="#"> 39 Shares </a>
+                        </div>
+
+                        <div class="col-md-4 post-footer-line-item">
+                            {#  Tags  #}
+                            <a href="#"><span class="label label-info"><i class="fa fa-1x fa-tags"></i>Snipp</span></a>
+                            <a href="#"><span class="label label-info"><i class="fa fa-1x fa-tags"></i>Bootstrap</span></a>
+                            <a href="#"><span class="label label-info"><i class="fa fa-1x fa-tags"></i>UI</span></a>
+                            <a href="#"><span class="label label-info"><i class="fa fa-1x fa-tags"></i>Growth</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load staticfiles crispy_forms_tags %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        Logged In
+    {% else %}
+        Not Logged
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h1>
+                        {% if user.is_authenticated %}
+                            <p> Hi {{ user }} !!! </p>
+                        {% endif %}
+
+                        <p>
+                            this is home page of Socialist website for experienced of Registration and
+                            main authentication, login, signup and many other things in this category !!!
+                        </p>
+                    </h1>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <!-- ContactModal -->
+    <div id="contactModal" class="modal fade" role="dialog">
+        <!-- Modal content-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <h4 class="modal-title">Subscribe Me</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="subscribe" action="{% url 'subscribe' %}" method="post" onsubmit="return false;">
+                        {% csrf_token %}
+                        {% crispy contact_form %}
+                        <input class="btn btn-primary" onclick="subscribe()" type="submit" value="Contact"/>
+                    </form>
+                    <div id="results"></div>
+                </div>
+
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <section class="container">
+        <div class="col-xs-12 col-sm-12">
+            <p class="lead text-left">Network working families, Aga Khan, collaborative consumption plumpy'nut end
+                hunger
+                poverty readiness legitimize proper resources social good humanitarian relief medical supplies.
+                Protect,
+                future expanding community ownership, citizenry innovate metrics. Provide action public-private
+                partnerships
+                Medecins du Monde collaborative cities board of directors humanitarian agriculture aid progressive
+                assessment expert conflict resolution cooperation. Economic development, economic security pathway
+                to a
+                better life public service results human-centered design necessities. Women and children; The Elders
+                institutions interconnectivity; small-scale farmers public institutions change-makers participatory
+                monitoring organization grantees detection local solutions underprivileged raise awareness. Carbon
+                rights
+                recognize potential; save the world courageous sustainability assistance vulnerable citizens. Theory
+                of
+                social change evolution, Millennium Development Goals, youth democratizing the global financial
+                system
+                initiative legal aid sanitation our grantees and partners lifting people up.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="col-xs-12 col-sm-12">
+            <p class="lead text-left">Cross-cultural, global leaders equal opportunity social, social movement
+                insurmountable challenges breakthrough insights honor. Jane Jacobs leverage; nonprofit free-speech,
+                our
+                ambitions, disruption enabler 501(c)(3). Accessibility world problem solving, partner diversity
+                Cesar Chavez
+                billionaire philanthropy improving quality refugee benefit democracy natural resources.
+                Crowdsourcing,
+                policymakers; harness, peace respect partnership Andrew Carnegie inclusive. Human potential
+                Kickstarter
+                resourceful lasting change process respond.</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        function subscribe() {
+            console.log("subscription : " + $('#id_email').val());
+            $.ajax({
+                url: "/accounts/subscribe/",
+                type: "POST",
+                dataType: "json",
+                async: true,
+                data: {
+                    'email': $('#id_email').val(),
+                    'csrfmiddlewaretoken': "{{ csrf_token }}"
+                },
+
+                // handle a successful response
+                success: function (data) {
+                    console.log("result : " + data.result + " message : " + data.message);
+                    if (data.message = 'success') {
+                        $('#contactModal').modal('toggle');
+                        $('#messages').show();
+                        $('#messages').append(data.message + " result : " + data.result);
+                    }
+                    $('#messages').delay(3000).fadeOut();
+                },
+
+                // handle a non-successful response
+                error: function (xhr, errmsg, err) {
+                    $('#results').html("<div class='alert-box alert radius' data-alert>OOOPPPSSS, We have encountered an error " +
+                            "<a href='#'   class='close'>&times;</a></div>");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            var isAuthenticated;
+            {% if user.is_authenticated %}
+                isAuthenticated = true;
+            {% else %}
+                isAuthenticated = false;
+            {% endif %}
+            if (!isAuthenticated) {
+                $("#contactModal").modal();
+            }
+        });
+
+    </script>
+
+{% endblock %}

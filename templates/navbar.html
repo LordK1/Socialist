@@ -1,0 +1,83 @@
+{% load flatpages %}
+{% get_flatpages as pages %}
+<div class="navbar-more-overlay"></div>
+<nav class="navbar navbar-inverse navbar-fixed-top animate">
+    <div class="container navbar-more visible-xs">
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Submit</button>
+						</span>
+                </div>
+            </div>
+        </form>
+        <ul class="nav navbar-nav">
+
+        </ul>
+    </div>
+    <div class="container">
+        <div class="navbar-header hidden-xs">
+            <a class="navbar-brand" href="{% url 'home' %}">Socialist</a>
+
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="" href="{% url 'blog:post_list' %}">Posts</a>
+            </li>
+            <li>
+                <a class="" href="{% url 'search' %}">Search</a>
+            </li>
+            {% for page in pages %}
+                <li><a class="" href="{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right mobile-bar">
+            {% if user.is_authenticated %}
+                <!-- When user in Login -->
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-divider"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {{ user.username }} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{% url "dashboard" %}">
+                                    <i class="fa fa-user-md"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url "settings" %}">
+                                    <i class="fa fa-desktop"></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url "logout" %}">
+                                    <i class="fa fa-sign-out"></i>
+                                    Logout</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            {% else %}
+                <form class="navbar-form navbar-right" method="post" action="{% url "login" %}">
+                    {% csrf_token %}
+                    <input id="id_login" name="login" class="form-control" type="text" placeholder="Username">
+                    <input id="id_password" name="password" class="form-control" type="password" placeholder="Password">
+                    <button type="submit" class="btn btn-default btn-primary">Login</button>
+                    <a href="{% url 'signup' %}" class="btn btn-default btn-success">Sign Up</a>
+                </form>
+            {% endif %}
+
+        </ul>
+    </div>
+</nav>
+

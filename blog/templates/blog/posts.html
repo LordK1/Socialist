@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Posts
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/post-styles.css' %}">
+{% endblock %}
+{% block styles %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>
+                Vote, Comment, Share your favorite Posts or make new <a href="{% url 'blog:post_create' %}">Here</a>
+            </h1>
+        </div>
+        {% for post in posts %}
+            {% comment %}{% include "name_snippet.html" with person="Jane" greeting="Hello" %}{% endcomment %}
+            {% include 'blog/post_snippet.html' with post=post %}
+        {% endfor %}
+    </div>
+{% endblock %}

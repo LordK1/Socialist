@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% load i18n staticfiles %}
+{% load crispy_forms_tags %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+
+<style type="text/css">
+    {% block styles %}
+    {% endblock %}
+</style>
+
+{% block content %}
+    {% get_providers as socialaccount_providers %}
+
+    <div class="container">
+        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">{% trans "Sign In" %}</div>
+                    <div class="forget-password-wrapper">
+                        <a href="{% url 'password_recovery' %}">{% trans "Forgot password" %} ?</a>
+                    </div>
+                </div>
+
+                <div class="panel-body panel-body-wrapper">
+                    <div id="login-alert" class="alert alert-danger col-sm-12">
+
+                    </div>
+
+                    <form id="loginForm" class="form-horizontal" role="form" method="POST"
+                          data-toggle="validator"
+                          action="{% url 'login' %}">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        <div class="input-group {% if form.login.errors %}has-error{% endif %} input-group-wrapper">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            {{ form.login }}
+
+                        </div>
+
+                        <div class="input-group {% if form.password.errors %}has-error{% endif %} input-group-wrapper-bottom">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            <input id="{{ form.password.id }}" type="password" class="form-control"
+                                   name="{{ form.password.name }}"
+                                   placeholder="password"
+                                   required
+                                   data-minlength="5"
+                                    >
+                        </div>
+
+                        <div class="input-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="login-remember" type="checkbox" name="remember" value="1">
+                                    {% trans "Remember me" %}
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Redirect Url -->
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                        {% endif %}
+
+                        <div class="form-group form-group-wrapper">
+
+                            <!-- Buttons -->
+                            <div class="col-sm-12 controls">
+                                <button class="btn btn-success" type="submit">
+                                    {% trans "Sign In" %}
+                                </button>
+
+                                {% for provider in socialaccount_providers %}
+                                    {% if provider.id == "openid" %}
+                                        {% for brand in provider.get_brands %}
+                                            <a title="{{ brand.name }}" class="btn btn-default btn-primary"
+                                               href="{% provider_login_url provider.id openid=brand.open_id process="login" %}">
+                                                {{ brand.name }}
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a class="btn btn-default btn-primary" title="{{ provider.name }}"
+                                       href="{% provider_login_url provider.id process="login" scope=scope auth_params=auth_params %}">
+                                        {{ provider.name }}
+                                    </a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 control">
+                                <div class="form-group-button-wrapper">
+                                    Don't have an account!
+                                    <a href="{% url 'signup' %}">
+                                        Sign Up Here
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript" src="{% static 'bootstrap-validator/dist/validator.min.js' %}"></script>
+{% endblock %}
