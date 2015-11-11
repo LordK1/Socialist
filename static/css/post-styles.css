@@ -1,0 +1,58 @@
+body {
+    margin: 50px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn {
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+}
+
+.btn-read-more {
+    padding: 5px;
+    text-align: center;
+    border-radius: 0px;
+    display: inline-block;
+    border: 2px solid #662D91;
+    text-decoration: none;
+    text-transform: lowercase;
+    font-weight: bold;
+    font-size: 12px;
+    color: #662D91;
+}
+
+.btn-read-more:hover {
+    color: #FFF;
+    background: #662D91;
+}
+
+.post {
+    border-bottom: 1px;
+    solid: #DDD;
+}
+
+.post-header {
+    color: #662D91;
+}
+
+.post-footer-line {
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 5px 0px;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.post-footer-line i {
+    margin: 0px 2px;
+}
+
+.post-content {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}

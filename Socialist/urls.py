@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^search/$', SearchView.as_view(), name='search'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'i18n/', include('django.conf.urls.i18n')),

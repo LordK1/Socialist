@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles comments %}
 {% block title %}
     {{ post.title }}
 {% endblock %}
@@ -213,11 +213,35 @@
         </div>
         <div class="row">
             {# Show Comments for post#}
+            {% get_comment_count for post as comment_count %}
+            {% get_comment_count for blog.post post.id as post_comment_count %}
+
+            {% get_comment_list for post as comment_list %}
+
             <div class="col-md-12">
                 <div class="comments-container">
                     <h3 class="text-success">
-                        Comments
+                        {{ comment_count }} Comments , post comment count : {{ post_comment_count }}
                     </h3>
+
+                    {# Quickly rendering a comment list #}
+                    {% render_comment_list for post %}
+
+                    {% for comment in comment_list %}
+                        PermaLink : {% get_comment_permalink comment %}
+                        {{ comment }}
+                        <a href="c{{ comment.id }}">{{ comment }}</a>
+                        <a href="{% get_comment_permalink comment %}">permalink for comment {{ comment.id }} and
+                            number {{ forloop.counter }}</a>
+                    {% endfor %}
+
+                    {% render_comment_form for post %}
+
+
+                    <hr>
+                    <hr>
+                    <hr>
+
                     <ul class="comments-list">
                         <li class="clearfix">
                             <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">

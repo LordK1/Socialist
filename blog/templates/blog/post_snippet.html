@@ -73,7 +73,10 @@
                         </div>
                         <div class="col-md-2 post-footer-line-item">
                             {# Comments #}
-                            <i class="fa fa-1x fa-commenting-o"></i><a href="#"> 3 Comments </a>
+                            <i class="fa fa-1x fa-commenting-o"></i><a href="#">
+                            {% load comments %}
+                            {% get_comment_count for post as comments_count %}
+                            <strong>{{ comments_count }}</strong> Comments </a>
                         </div>
                         <div class="col-md-2 post-footer-line-item">
                             {#  Shares  #}

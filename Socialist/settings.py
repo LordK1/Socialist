@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'django_comments',
     'braces',
     'allauth',
     'allauth.account',
@@ -54,8 +55,6 @@ INSTALLED_APPS = (
     'crispy_forms',
     'accounts',
     'app',
-    'threadedcomments',
-    'django_comments',
     'blog',
 )
 
@@ -152,8 +151,6 @@ STATICFILES_DIRS = (
 # Compress Configurations
 COMPRESS_ROOT = os.path.join(BASE_DIR, 'static')
 
-
-#
 # Media configurations
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (
@@ -168,4 +165,4 @@ REST_FRAMEWORK = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-COMMENTS_APP = 'threadedcomments'
+COMMENTS_APP = 'django_comments'
