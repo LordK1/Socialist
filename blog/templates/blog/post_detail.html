@@ -129,7 +129,6 @@
                     {% comment %}{% render_comment_list for post %}{% endcomment %}
                     <ul class="comments-list">
 
-
                         {% for comment in comment_list %}
                             {#  must add author of comment into this #}
                             {% include 'comments/comment_snippet.html' with comment=comment %}
@@ -137,15 +136,23 @@
                     </ul>
                     {% comment %}{% render_comment_form for post %}{% endcomment %}
                     <hr>
-                    <div class="input-group">
+                    {% comment %}<div class="input-group">
                         <input class="form-control" placeholder="Add a comment" type="text">
                     <span class="input-group-addon">
                         <a href="#"><i class="fa fa-edit"></i></a>
                     </span>
-                    </div>
+                    </div>{% endcomment %}
                     <hr>
                     <h2>Do you want Post Your Comment :</h2>
                     {% render_comment_form for blog.post post.id %}
+
+                    {% comment %}{% get_comment_form for blog.post post.id as form %}
+                    <form action="{% comment_form_target %}" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="send" name="Send Comment">
+                    </form>{% endcomment %}
+
 
                 </div>
             </div>

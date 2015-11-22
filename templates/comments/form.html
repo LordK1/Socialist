@@ -1,0 +1,10 @@
+{% load comments crispy_forms_tags %}
+{% get_comment_form for post as form %}
+<form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+
+    {% crispy form %}
+    <input type="hidden" name="next" value="{{ post.get_absolute_url }}"/>
+    <input class="btn btn-primary btn-success" type="submit" name="Fuck it" value="submit">
+    <input class="btn btn-primary " type="submit" name="don't Fuck it !!!" value="preview">
+</form>

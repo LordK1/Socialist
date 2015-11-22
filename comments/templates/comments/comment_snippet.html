@@ -111,7 +111,7 @@
         {# comment date #}
         <p class="comment-date">{{ comment.submit_date | date:"M D d, Y" }} </p>
         {% comment %}<p class="comment-username"> Username : {{ comment.user_name }} url : {{ comment.user_url }}  </p>{% endcomment %}
-        {# comment link #}s
+        {# comment link #}
         {% comment %}<p class="comment-link">
             <a href="{% get_comment_permalink comment %}">
                 Permalink : {% get_comment_permalink comment %}

@@ -13,7 +13,10 @@ class PostCommentForm(CommentForm):
         return PostComment
 
     def get_comment_create_data(self):
-        # Use the of the superclass, and add in the content field
-        data = super(CommentForm, self).get_comment_create_data()
+        data = super(PostCommentForm, self).get_comment_create_data()
         data['content'] = self.cleaned_data['content']
         return data
+
+    class Meta:
+        fields = ['content', 'user']
+        exclude = ['name', 'user_url', 'user_email']
