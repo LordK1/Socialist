@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'compressor',
     'widget_tweaks',
     'crispy_forms',
+    'comments',
     'accounts',
     'app',
     'blog',
@@ -165,4 +166,4 @@ REST_FRAMEWORK = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-COMMENTS_APP = 'django_comments'
+COMMENTS_APP = 'comments'
